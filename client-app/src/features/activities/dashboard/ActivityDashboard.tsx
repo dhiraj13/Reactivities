@@ -32,13 +32,13 @@ export default function ActivityDashboard({
       <Grid.Column width="6">
         <When condition={!!selectedActivity && !editMode}>
           <ActivityDetails
-            activity={activities[0]}
+            activity={selectedActivity!}
             cancelSelectActivity={cancelSelectActivity}
             openForm={openForm}
           />
         </When>
         <When condition={editMode}>
-          <ActivityForm closeForm={closeForm} />
+          <ActivityForm activity={selectedActivity} closeForm={closeForm} />
         </When>
       </Grid.Column>
     </Grid>
