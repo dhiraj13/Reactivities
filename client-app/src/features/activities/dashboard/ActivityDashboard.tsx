@@ -3,6 +3,7 @@ import { Activity } from "../../../app/models/activity";
 import ActivityList from "./ActivityList";
 import ActivityDetails from "../details/ActivityDetails";
 import { When } from "react-if";
+import ActivityForm from "../form/ActivityForm";
 
 interface Props {
   activities: Activity[];
@@ -18,6 +19,7 @@ export default function ActivityDashboard({ activities }: Props) {
         <When condition={activities.length > 0}>
           <ActivityDetails activity={activities[0]} />
         </When>
+        <ActivityForm />
       </Grid.Column>
     </Grid>
   );
