@@ -2,16 +2,19 @@ import { ChangeEvent, useState } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
 
 import { useStore } from "../../../app/stores/store";
-import { Activity } from "../../../app/models/activity";
 
 interface Props {
-  createOrEdit: (activity: Activity) => void;
   submitting: boolean;
 }
 
-export default function ActivityForm({ createOrEdit, submitting }: Props) {
+export default function ActivityForm({ submitting }: Props) {
   const {
-    activityStore: { selectedActivity, closeForm },
+    activityStore: {
+      selectedActivity,
+      closeForm,
+      createActivity,
+      updateActivity,
+    },
   } = useStore();
 
   const initialState = selectedActivity ?? {
@@ -27,7 +30,11 @@ export default function ActivityForm({ createOrEdit, submitting }: Props) {
   const [activity, setActivity] = useState(initialState);
 
   function handleSubmit() {
-    createOrEdit(activity);
+    if (activity.id != "") {
+      createActivity(activity);
+    } else {
+      updateActivity(activity);
+    }
   }
 
   function handleInputChange(

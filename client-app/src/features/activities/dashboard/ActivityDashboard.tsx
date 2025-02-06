@@ -10,14 +10,12 @@ import ActivityDetails from "../details/ActivityDetails";
 
 interface Props {
   activities: Activity[];
-  createOrEdit: (activity: Activity) => void;
   deleteActivity: (id: string) => void;
   submitting: boolean;
 }
 
 export default observer(function ActivityDashboard({
   activities,
-  createOrEdit,
   deleteActivity,
   submitting,
 }: Props) {
@@ -37,7 +35,7 @@ export default observer(function ActivityDashboard({
           <ActivityDetails />
         </When>
         <When condition={editMode}>
-          <ActivityForm createOrEdit={createOrEdit} submitting={submitting} />
+          <ActivityForm submitting={submitting} />
         </When>
       </Grid.Column>
     </Grid>
