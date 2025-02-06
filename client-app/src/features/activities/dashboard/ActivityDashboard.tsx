@@ -5,37 +5,22 @@ import { observer } from "mobx-react-lite";
 import ActivityList from "./ActivityList";
 import ActivityForm from "../form/ActivityForm";
 import { useStore } from "../../../app/stores/store";
-import { Activity } from "../../../app/models/activity";
 import ActivityDetails from "../details/ActivityDetails";
 
-interface Props {
-  activities: Activity[];
-  deleteActivity: (id: string) => void;
-  submitting: boolean;
-}
-
-export default observer(function ActivityDashboard({
-  activities,
-  deleteActivity,
-  submitting,
-}: Props) {
+export default observer(function ActivityDashboard() {
   const { activityStore } = useStore();
   const { selectedActivity, editMode } = activityStore;
   return (
     <Grid>
       <Grid.Column width="10">
-        <ActivityList
-          activities={activities}
-          deleteActivity={deleteActivity}
-          submitting={submitting}
-        />
+        <ActivityList />
       </Grid.Column>
       <Grid.Column width="6">
         <When condition={!!selectedActivity && !editMode}>
           <ActivityDetails />
         </When>
         <When condition={editMode}>
-          <ActivityForm submitting={submitting} />
+          <ActivityForm />
         </When>
       </Grid.Column>
     </Grid>

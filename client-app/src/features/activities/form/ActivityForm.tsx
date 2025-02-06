@@ -3,17 +3,14 @@ import { Button, Form, Segment } from "semantic-ui-react";
 
 import { useStore } from "../../../app/stores/store";
 
-interface Props {
-  submitting: boolean;
-}
-
-export default function ActivityForm({ submitting }: Props) {
+export default function ActivityForm() {
   const {
     activityStore: {
       selectedActivity,
       closeForm,
       createActivity,
       updateActivity,
+      loading,
     },
   } = useStore();
 
@@ -30,10 +27,10 @@ export default function ActivityForm({ submitting }: Props) {
   const [activity, setActivity] = useState(initialState);
 
   function handleSubmit() {
-    if (activity.id != "") {
-      createActivity(activity);
-    } else {
+    if (activity.id) {
       updateActivity(activity);
+    } else {
+      createActivity(activity);
     }
   }
 
@@ -85,7 +82,7 @@ export default function ActivityForm({ submitting }: Props) {
           onChange={handleInputChange}
         />
         <Button
-          loading={submitting}
+          loading={loading}
           floated="right"
           positive
           type="submit"
