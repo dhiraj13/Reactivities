@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import "semantic-ui-css/semantic.min.css";
+import "react-calendar/dist/Calendar.css";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 
