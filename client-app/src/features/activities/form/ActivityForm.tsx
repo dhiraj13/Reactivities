@@ -7,7 +7,6 @@ export default function ActivityForm() {
   const {
     activityStore: {
       selectedActivity,
-      closeForm,
       createActivity,
       updateActivity,
       loading,
@@ -88,12 +87,7 @@ export default function ActivityForm() {
           type="submit"
           content="Submit"
         />
-        <Button
-          floated="right"
-          type="button"
-          content="Cancel"
-          onClick={closeForm}
-        />
+        <Button floated="right" type="button" content="Cancel" />
       </Form>
     </Segment>
   );

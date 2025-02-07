@@ -5,11 +5,7 @@ import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 export default function ActivityDetails() {
   const {
-    activityStore: {
-      selectedActivity: activity,
-      openForm,
-      cancelSelectedActivity,
-    },
+    activityStore: { selectedActivity: activity },
   } = useStore();
 
   if (!activity) return <LoadingComponent />;
@@ -26,18 +22,8 @@ export default function ActivityDetails() {
       </Card.Content>
       <Card.Content extra>
         <Button.Group widths="2">
-          <Button
-            basic
-            color="blue"
-            content="Edit"
-            onClick={() => openForm(activity.id)}
-          />
-          <Button
-            basic
-            color="grey"
-            content="Cancel"
-            onClick={cancelSelectedActivity}
-          />
+          <Button basic color="blue" content="Edit" />
+          <Button basic color="grey" content="Cancel" />
         </Button.Group>
       </Card.Content>
     </Card>
