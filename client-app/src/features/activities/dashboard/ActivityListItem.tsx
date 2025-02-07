@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
-import { SyntheticEvent, useState } from "react";
 import { Button, Icon, Item, Segment } from "semantic-ui-react";
 
-import { useStore } from "../../../app/stores/store";
 import { Activity } from "../../../app/models/activity";
 
 interface Props {
@@ -10,19 +8,6 @@ interface Props {
 }
 
 export default function ActivityListItem({ activity }: Props) {
-  const {
-    activityStore: { deleteActivity, loading },
-  } = useStore();
-
-  const [target, setTarget] = useState("");
-
-  function handleActivityDelete(
-    e: SyntheticEvent<HTMLButtonElement>,
-    id: string
-  ) {
-    setTarget(e.currentTarget.name);
-    deleteActivity(id);
-  }
 
   return (
     <Segment.Group>

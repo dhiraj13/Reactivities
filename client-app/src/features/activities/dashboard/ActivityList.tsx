@@ -2,15 +2,13 @@ import { observer } from "mobx-react-lite";
 import { Header } from "semantic-ui-react";
 import { Fragment } from "react/jsx-runtime";
 
-import { useStore } from "../../../app/stores/store";
 import ActivityListItem from "./ActivityListItem";
+import { useStore } from "../../../app/stores/store";
 
 export default observer(function ActivityList() {
   const {
     activityStore: { groupedActivities },
   } = useStore();
-
-  console.log(groupedActivities, "grouped");
 
   return (
     <>
