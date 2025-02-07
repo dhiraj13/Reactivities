@@ -2,7 +2,7 @@ import { v4 as uuid } from "uuid";
 import { observer } from "mobx-react-lite";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { useStore } from "../../../app/stores/store";
 import { Activity } from "../../../app/models/activity";
@@ -11,7 +11,6 @@ import LoadingComponent from "../../../app/layout/LoadingComponent";
 export default observer(function ActivityForm() {
   const {
     activityStore: {
-      selectedActivity,
       createActivity,
       updateActivity,
       loading,
@@ -19,7 +18,7 @@ export default observer(function ActivityForm() {
       loadingInitial,
     },
   } = useStore();
-  const {id} = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [activity, setActivity] = useState<Activity | undefined>({
@@ -33,8 +32,8 @@ export default observer(function ActivityForm() {
   });
 
   useEffect(() => {
-    if (id) loadActivity(id).then(activity => setActivity(activity!))
-  }, [id, loadActivity])
+    if (id) loadActivity(id).then((activity) => setActivity(activity!));
+  }, [id, loadActivity]);
 
   function handleSubmit() {
     if (activity) {
@@ -58,7 +57,7 @@ export default observer(function ActivityForm() {
     setActivity({ ...activity!, [name]: value });
   }
 
-  if (loadingInitial) return <LoadingComponent content="Loading activity..." />
+  if (loadingInitial) return <LoadingComponent content="Loading activity..." />;
 
   return (
     <Segment clearing>
@@ -107,8 +106,14 @@ export default observer(function ActivityForm() {
           type="submit"
           content="Submit"
         />
-        <Button floated="right" type="button" content="Cancel" />
+        <Button
+          as={Link}
+          to="/activities"
+          floated="right"
+          type="button"
+          content="Cancel"
+        />
       </Form>
     </Segment>
   );
-})
+});
