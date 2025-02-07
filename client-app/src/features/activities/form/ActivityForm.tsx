@@ -1,9 +1,10 @@
+import { v4 as uuid } from "uuid";
+import { observer } from "mobx-react-lite";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useStore } from "../../../app/stores/store";
-import { observer } from "mobx-react-lite";
-import { useParams } from "react-router-dom";
 import { Activity } from "../../../app/models/activity";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 
@@ -19,6 +20,7 @@ export default observer(function ActivityForm() {
     },
   } = useStore();
   const {id} = useParams();
+  const navigate = useNavigate();
 
   const [activity, setActivity] = useState<Activity | undefined>({
     id: "",
@@ -36,10 +38,15 @@ export default observer(function ActivityForm() {
 
   function handleSubmit() {
     if (activity) {
-      if (activity.id) {
-        updateActivity(activity);
+      if (!activity.id) {
+        activity.id = uuid();
+        createActivity(activity).then(() =>
+          navigate(`/activities/${activity.id}`)
+        );
       } else {
-        createActivity(activity);
+        updateActivity(activity).then(() =>
+          navigate(`/activities/${activity.id}`)
+        );
       }
     }
   }
