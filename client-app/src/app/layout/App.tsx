@@ -4,6 +4,7 @@ import { Container } from "semantic-ui-react";
 
 import NavBar from "./Navbar";
 import HomePage from "../../features/home/HomePage";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const location = useLocation();
@@ -11,6 +12,7 @@ function App() {
 
   return (
     <>
+      <ToastContainer position="bottom-right" hideProgressBar theme="colored" />
       {location.pathname === "/" ? (
         <HomePage />
       ) : (
