@@ -10,6 +10,7 @@ import { useStore } from "../../../app/stores/store";
 import { Activity } from "../../../app/models/activity";
 import MyTextInput from "../../../app/common/form/MyTextInput";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
+import MyTextArea from "../../../app/common/form/MyTextArea";
 
 export default observer(function ActivityForm() {
   const {
@@ -82,7 +83,7 @@ export default observer(function ActivityForm() {
         {({ handleSubmit }) => (
           <Form className="ui form" onSubmit={handleSubmit} autoComplete="off">
             <MyTextInput name="title" placeholder="Title" />
-            <MyTextInput placeholder="Description" name="description" />
+            <MyTextArea rows={3} placeholder="Description" name="description" />
             <MyTextInput placeholder="Category" name="category" />
             <MyTextInput placeholder="Date" name="date" />
             <MyTextInput placeholder="City" name="city" />
