@@ -23,23 +23,7 @@ namespace API.Services
                 new Claim(ClaimTypes.Email, user.Email),
             };
 
-            // 🔹 Read the secret key from configuration
-            string secretKey = _config["Jwt:Key"];
-
-            if (string.IsNullOrEmpty(secretKey))
-            {
-                throw new Exception("JWT secret key is missing from configuration.");
-            }
-
-            // 🔹 Decode the Base64 key to bytes
-            var keyBytes = Convert.FromBase64String(secretKey);
-
-            if (keyBytes.Length < 64) // Ensure it's at least 512 bits (64 bytes)
-            {
-                throw new Exception("JWT secret key must be at least 512 bits (64 bytes).");
-            }
-
-            var key = new SymmetricSecurityKey(keyBytes);
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("jJJDKxsJMZ8Y7z4vQ5YdtHC3cyxJKMjzkf3p3kbq3q5uhTtbRt7fSFvvnBAJF3u8"));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
