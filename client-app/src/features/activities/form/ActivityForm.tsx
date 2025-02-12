@@ -32,7 +32,7 @@ export default observer(function ActivityForm() {
     id: "",
     category: "",
     city: "",
-    date: "",
+    date: null,
     description: "",
     title: "",
     venue: "",
