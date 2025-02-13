@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate, RouteObject } from "react-router-dom";
 
 import App from "../layout/App";
 import NotFound from "../../features/errors/NotFound";
+import LoginForm from "../../features/users/LoginForm";
 import TestErrors from "../../features/errors/TestError";
 import ServerError from "../../features/errors/ServerError";
 import ActivityForm from "../../features/activities/form/ActivityForm";
@@ -28,6 +29,10 @@ export const routes: RouteObject[] = [
       {
         path: "manage/:id",
         element: <ActivityForm key="manage" />,
+      },
+      {
+        path: "login",
+        element: <LoginForm />,
       },
       {
         path: "errors",
