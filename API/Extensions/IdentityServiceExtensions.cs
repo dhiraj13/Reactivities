@@ -18,7 +18,7 @@ namespace API.Extensions
             })
             .AddEntityFrameworkStores<DataContext>();
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("jJJDKxsJMZ8Y7z4vQ5YdtHC3cyxJKMjzkf3p3kbq3q5uhTtbRt7fSFvvnBAJF3u8"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
