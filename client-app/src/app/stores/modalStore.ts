@@ -19,6 +19,7 @@ export default class ModalStore {
     this.modal.open = true;
     this.modal.body = content;
   };
+
   closeModal = () => {
     this.modal.open = false;
     this.modal.body = null;
