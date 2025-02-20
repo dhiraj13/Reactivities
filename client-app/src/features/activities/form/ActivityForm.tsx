@@ -7,7 +7,7 @@ import { Button, Header, Segment } from "semantic-ui-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { useStore } from "../../../app/stores/store";
-import { Activity } from "../../../app/models/activity";
+import { ActivityFormValues } from "../../../app/models/activity";
 import MyTextArea from "../../../app/common/form/MyTextArea";
 import MyDateInput from "../../../app/common/form/MyDateInput";
 import MyTextInput from "../../../app/common/form/MyTextInput";
@@ -20,7 +20,6 @@ export default observer(function ActivityForm() {
     activityStore: {
       createActivity,
       updateActivity,
-      loading,
       loadActivity,
       loadingInitial,
     },
@@ -28,15 +27,9 @@ export default observer(function ActivityForm() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [activity, setActivity] = useState<Activity>({
-    id: "",
-    category: "",
-    city: "",
-    date: null,
-    description: "",
-    title: "",
-    venue: "",
-  });
+  const [activity, setActivity] = useState<ActivityFormValues>(
+    new ActivityFormValues()
+  );
 
   const validationSchema = Yup.object({
     title: Yup.string().required("The activity title is required"),
@@ -48,10 +41,13 @@ export default observer(function ActivityForm() {
   });
 
   useEffect(() => {
-    if (id) loadActivity(id).then((activity) => setActivity(activity!));
+    if (id)
+      loadActivity(id).then((activity) =>
+        setActivity(new ActivityFormValues(activity))
+      );
   }, [id, loadActivity]);
 
-  function handleFormSubmit(activity: Activity) {
+  function handleFormSubmit(activity: ActivityFormValues) {
     if (activity) {
       if (!activity.id) {
         activity.id = uuid();
@@ -98,7 +94,7 @@ export default observer(function ActivityForm() {
             <MyTextInput placeholder="Venue" name="venue" />
             <Button
               disabled={isSubmitting || !dirty || !isValid}
-              loading={loading}
+              loading={isSubmitting}
               floated="right"
               positive
               type="submit"
