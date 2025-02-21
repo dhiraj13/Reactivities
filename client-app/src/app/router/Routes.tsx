@@ -8,6 +8,7 @@ import ServerError from "../../features/errors/ServerError";
 import ActivityForm from "../../features/activities/form/ActivityForm";
 import ActivityDetails from "../../features/activities/details/ActivityDetails";
 import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
+import ProfilePage from "../../features/profiles/ProfilePage";
 
 export const routes: RouteObject[] = [
   {
@@ -29,6 +30,10 @@ export const routes: RouteObject[] = [
       {
         path: "manage/:id",
         element: <ActivityForm key="manage" />,
+      },
+      {
+        path: "profiles/:username",
+        element: <ProfilePage />,
       },
       {
         path: "login",
