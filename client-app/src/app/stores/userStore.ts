@@ -32,6 +32,12 @@ export default class UserStore {
     store.modalStore.closeModal();
   };
 
+  setImage = (image: string) => {
+    if (this.user) {
+      this.user.image = image;
+    }
+  }
+
   logout = () => {
     store.commonStore.setToken(null);
     this.user = null;
