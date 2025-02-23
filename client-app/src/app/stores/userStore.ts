@@ -36,7 +36,7 @@ export default class UserStore {
     if (this.user) {
       this.user.image = image;
     }
-  }
+  };
 
   logout = () => {
     store.commonStore.setToken(null);
@@ -51,5 +51,9 @@ export default class UserStore {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  setDisplayName = (name: string) => {
+    if (this.user) this.user.displayName = name;
   };
 }
