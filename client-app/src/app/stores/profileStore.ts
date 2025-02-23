@@ -47,12 +47,12 @@ export default class ProfileStore {
             this.profile.image = photo.url;
           }
         }
-      })
+      });
     } catch (error) {
       console.log(error);
-      runInAction(() => this.uploading = false)
+      runInAction(() => (this.uploading = false));
     }
-  }
+  };
 
   setMainPhoto = async (photo: Photo) => {
     this.loading = true;
@@ -61,15 +61,33 @@ export default class ProfileStore {
       store.userStore.setImage(photo.url);
       runInAction(() => {
         if (this.profile && this.profile.photos) {
-          this.profile.photos.find(p => p.isMain)!.isMain = false;
-          this.profile.photos.find(p => p.id === photo.id)!.isMain = true;
+          this.profile.photos.find((p) => p.isMain)!.isMain = false;
+          this.profile.photos.find((p) => p.id === photo.id)!.isMain = true;
           this.profile.image = photo.url;
           this.loading = false;
         }
-      })
+      });
     } catch (error) {
-      runInAction(() => this.loading = false);
+      runInAction(() => (this.loading = false));
       console.log(error);
     }
-  }
+  };
+
+  deletePhoto = async (photo: Photo) => {
+    this.loading = true;
+    try {
+      await agent.Profiles.deletePhoto(photo.id);
+      runInAction(() => {
+        if (this.profile) {
+          this.profile.photos = this.profile.photos?.filter(
+            (p) => p.id !== photo.id
+          );
+          this.loading = false;
+        }
+      });
+    } catch (error) {
+      runInAction(() => (this.loading = false));
+      console.log(error);
+    }
+  };
 }
