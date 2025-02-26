@@ -12,13 +12,19 @@ import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 export default observer(function ActivityDetails() {
   const {
-    activityStore: { selectedActivity: activity, loadActivity, loadingInitial },
+    activityStore: {
+      selectedActivity: activity,
+      loadActivity,
+      loadingInitial,
+      clearSelectedActivity,
+    },
   } = useStore();
   const { id } = useParams();
 
   useEffect(() => {
     if (id) loadActivity(id);
-  }, [id, loadActivity]);
+    return () => clearSelectedActivity();
+  }, [id, loadActivity, clearSelectedActivity]);
 
   if (loadingInitial || !activity) return <LoadingComponent />;
 

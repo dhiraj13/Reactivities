@@ -77,11 +77,11 @@ export default class ActivityStore {
     const user = store.userStore.user;
     if (user) {
       activity.isGoing = activity.attendees!.some(
-        (a) => a.userName === user.username
+        (a) => a.username === user.username
       );
       activity.isHost = activity.hostUsername === user.username;
       activity.host = activity.attendees?.find(
-        (x) => x.userName === activity.hostUsername
+        (x) => x.username === activity.hostUsername
       );
     }
     activity.date = new Date(activity.date!);
@@ -156,7 +156,7 @@ export default class ActivityStore {
         if (this.selectedActivity?.isGoing) {
           this.selectedActivity.attendees =
             this.selectedActivity.attendees?.filter(
-              (a) => a.userName !== user?.username
+              (a) => a.username !== user?.username
             );
           this.selectedActivity.isGoing = false;
         } else {
@@ -181,13 +181,21 @@ export default class ActivityStore {
     try {
       await agent.Activities.attend(this.selectedActivity!.id);
       runInAction(() => {
-        this.selectedActivity!.isCancelled = !this.selectedActivity?.isCancelled;
-        this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!);
-      })
+        this.selectedActivity!.isCancelled =
+          !this.selectedActivity?.isCancelled;
+        this.activityRegistry.set(
+          this.selectedActivity!.id,
+          this.selectedActivity!
+        );
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
-      runInAction(() => this.loading = false);
+      runInAction(() => (this.loading = false));
     }
-  }
+  };
+
+  clearSelectedActivity = () => {
+    this.selectedActivity = undefined;
+  };
 }
