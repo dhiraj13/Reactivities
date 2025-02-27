@@ -19,7 +19,9 @@ namespace Application.Core
                 .ForMember(dest => dest.Bio, opt => opt.MapFrom(src => src.AppUser.Bio))
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.AppUser.Photos.FirstOrDefault(x => x.IsMain).Url));
             CreateMap<AppUser, Profiles.Profile>()
-                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(x => x.IsMain).Url));
+                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(x => x.IsMain).Url))
+                .ForMember(dest => dest.FollowersCount, opt => opt.MapFrom(src => src.Followers.Count))
+                .ForMember(dest => dest.FollowingCount, opt => opt.MapFrom(src => src.Followings.Count));
             CreateMap<Comment, CommentDto>()
                 .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Author.DisplayName))
                 .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.Author.UserName))
