@@ -1,5 +1,5 @@
-import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 import { Image, Item, Label, List, Segment } from "semantic-ui-react";
 
 import { Activity } from "../../../app/models/activity";

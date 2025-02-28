@@ -7,10 +7,10 @@ import { Button, Header, Segment } from "semantic-ui-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { useStore } from "../../../app/stores/store";
-import { ActivityFormValues } from "../../../app/models/activity";
 import MyTextArea from "../../../app/common/form/MyTextArea";
 import MyDateInput from "../../../app/common/form/MyDateInput";
 import MyTextInput from "../../../app/common/form/MyTextInput";
+import { ActivityFormValues } from "../../../app/models/activity";
 import MySelectInput from "../../../app/common/form/MySelectInput";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { categoryOptions } from "../../../app/common/options/categoryOptions";
