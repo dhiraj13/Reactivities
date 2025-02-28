@@ -3,6 +3,7 @@ import { Tab, TabPane } from "semantic-ui-react";
 
 import ProfileAbout from "./ProfileAbout";
 import ProfilePhotos from "./ProfilePhotos";
+import { useStore } from "../../app/stores/store";
 import { Profile } from "../../app/models/profile";
 import ProfileFollowings from "./ProfileFollowings";
 
@@ -11,6 +12,8 @@ interface Props {
 }
 
 export default observer(function ProfileContent({ profile }: Props) {
+  const { profileStore } = useStore();
+
   const panes = [
     { menuItem: "About", render: () => <ProfileAbout /> },
     { menuItem: "Photos", render: () => <ProfilePhotos profile={profile} /> },
@@ -30,6 +33,9 @@ export default observer(function ProfileContent({ profile }: Props) {
       menu={{ fluid: true, vertical: true }}
       menuPosition="right"
       panes={panes}
+      onTabChange={(_, data) =>
+        profileStore.setActiveTab(data.activeIndex as number)
+      }
     />
   );
 });

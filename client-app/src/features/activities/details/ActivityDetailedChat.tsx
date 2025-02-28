@@ -2,11 +2,11 @@ import * as Yup from "yup";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react-lite";
+import { formatDistanceToNow } from "date-fns";
 import { Formik, Form, Field, FieldProps } from "formik";
 import { Comment, Header, Loader, Segment } from "semantic-ui-react";
 
 import { useStore } from "../../../app/stores/store";
-import { formatDistanceToNow } from "date-fns";
 
 interface Props {
   activityId: string;

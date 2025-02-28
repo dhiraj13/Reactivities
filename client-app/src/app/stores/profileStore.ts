@@ -1,7 +1,8 @@
-import { makeAutoObservable, runInAction } from "mobx";
-import { Photo, Profile } from "../models/profile";
-import agent from "../api/agent";
+import { makeAutoObservable, reaction, runInAction } from "mobx";
+
 import { store } from "./store";
+import agent from "../api/agent";
+import { Photo, Profile } from "../models/profile";
 
 export default class ProfileStore {
   profile: Profile | null = null;
@@ -10,10 +11,27 @@ export default class ProfileStore {
   loading = false;
   followings: Profile[] = [];
   loadingFollowings = false;
+  activeTab = 0;
 
   constructor() {
     makeAutoObservable(this);
+
+    reaction(
+      () => this.activeTab,
+      (activeTab) => {
+        if (activeTab === 3 || activeTab === 4) {
+          const predicate = activeTab === 3 ? "followers" : "following";
+          this.loadFollowings(predicate);
+        } else {
+          this.followings = [];
+        }
+      }
+    );
   }
+
+  setActiveTab = (activeTab: number) => {
+    this.activeTab = activeTab;
+  };
 
   get isCurrentUser() {
     if (store.userStore.user && this.profile) {
@@ -121,7 +139,8 @@ export default class ProfileStore {
       runInAction(() => {
         if (
           this.profile &&
-          this.profile.username !== store.userStore.user?.username
+          this.profile.username !== store.userStore.user?.username &&
+          this.profile.username === username
         ) {
           if (following) {
             this.profile.followersCount++;
@@ -129,6 +148,16 @@ export default class ProfileStore {
             this.profile.followersCount--;
           }
           this.profile.following = !this.profile.following;
+        }
+        if (
+          this.profile &&
+          this.profile.username === store.userStore.user?.username
+        ) {
+          if (following) {
+            this.profile.followingCount++;
+          } else {
+            this.profile.followingCount--;
+          }
         }
         this.followings.forEach((profile) => {
           if (profile.username === username) {

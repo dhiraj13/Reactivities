@@ -4,8 +4,8 @@ import { Button, Header } from "semantic-ui-react";
 import { ErrorMessage, Form, Formik } from "formik";
 
 import { useStore } from "../../app/stores/store";
-import MyTextInput from "../../app/common/form/MyTextInput";
 import ValidationError from "../errors/ValidationError";
+import MyTextInput from "../../app/common/form/MyTextInput";
 
 export default observer(function RegisterForm() {
   const { userStore } = useStore();

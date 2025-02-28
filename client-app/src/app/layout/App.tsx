@@ -1,14 +1,14 @@
+import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { Container } from "semantic-ui-react";
 import { ToastContainer } from "react-toastify";
 import { Outlet, useLocation } from "react-router-dom";
 
 import NavBar from "./Navbar";
+import { useStore } from "../stores/store";
+import LoadingComponent from "./LoadingComponent";
 import HomePage from "../../features/home/HomePage";
 import ModalContainer from "../common/modals/ModalContainer";
-import { useStore } from "../stores/store";
-import { useEffect } from "react";
-import LoadingComponent from "./LoadingComponent";
 
 function App() {
   const location = useLocation();
