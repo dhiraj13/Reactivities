@@ -1,3 +1,4 @@
+import { Else, If, Then } from "react-if";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { Grid, Loader } from "semantic-ui-react";
@@ -7,7 +8,7 @@ import ActivityList from "./ActivityList";
 import ActivityFilters from "./ActivityFilters";
 import { useStore } from "../../../app/stores/store";
 import { PagingParams } from "../../../app/models/pagination";
-import LoadingComponent from "../../../app/layout/LoadingComponent";
+import ActivityListItemPlaceholder from "./ActivityListItemPlaceholder";
 
 export default observer(function ActivityDashboard() {
   const { activityStore } = useStore();
@@ -25,24 +26,37 @@ export default observer(function ActivityDashboard() {
     if (activityRegistry.size <= 1) loadActivities();
   }, [loadActivities, activityRegistry.size]);
 
-  if (activityStore.loadingInitial && !loadingNext)
-    return <LoadingComponent content="Loading activities..." />;
-
   return (
     <Grid>
       <Grid.Column width="10">
-        <InfiniteScroll
-          pageStart={0}
-          loadMore={handleGetNext}
-          hasMore={
-            !loadingNext &&
-            !!pagination &&
-            pagination.currentPage < pagination.totalPages
+        <If
+          condition={
+            activityStore.loadingInitial &&
+            activityRegistry.size === 0 &&
+            !loadingNext
           }
-          initialLoad={false}
         >
-          <ActivityList />
-        </InfiniteScroll>
+          <Then>
+            <>
+              <ActivityListItemPlaceholder />
+              <ActivityListItemPlaceholder />
+            </>
+          </Then>
+          <Else>
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={handleGetNext}
+              hasMore={
+                !loadingNext &&
+                !!pagination &&
+                pagination.currentPage < pagination.totalPages
+              }
+              initialLoad={false}
+            >
+              <ActivityList />
+            </InfiniteScroll>
+          </Else>
+        </If>
       </Grid.Column>
       <Grid.Column width="6">
         <ActivityFilters />
