@@ -3,10 +3,10 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 
 import { store } from "../stores/store";
 import { router } from "../router/Routes";
-import { Photo, Profile } from "../models/profile";
 import { User, UserFormValues } from "../models/user";
-import { Activity, ActivityFormValues } from "../models/activity";
 import { PaginatedResult } from "../models/pagination";
+import { Photo, Profile, UserActivity } from "../models/profile";
+import { Activity, ActivityFormValues } from "../models/activity";
 
 const sleep = (delay: number) => {
   return new Promise((resolve) => {
@@ -126,6 +126,10 @@ const Profiles = {
     requests.post(`/follow/${username}`, {}),
   listFollowings: (username: string, predicate: string) =>
     requests.get<Profile[]>(`/follow/${username}?predicate=${predicate}`),
+  listActivities: (username: string, predicate: string) =>
+    requests.get<UserActivity[]>(
+      `/profiles/${username}/activities?predicate=${predicate}`
+    ),
 };
 
 const agent = {
