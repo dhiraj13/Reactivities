@@ -11,7 +11,7 @@ export default function MyDateInput(props: DatePickerProps) {
         {...field}
         {...props}
         selected={field.value ? new Date(field.value) : null}
-        onChange={(value: Date | null) => helpers.setValue(value)}
+        onChange={(value: unknown) => helpers.setValue(value)}
       />
       {meta.touched && meta.error ? (
         <Label basic color="red">
