@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { Container } from "semantic-ui-react";
 import { ToastContainer } from "react-toastify";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 
 import NavBar from "./Navbar";
 import { useStore } from "../stores/store";
@@ -27,6 +27,7 @@ function App() {
 
   return (
     <>
+      <ScrollRestoration />
       <ToastContainer
         autoClose={3000}
         position="bottom-right"
